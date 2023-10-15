@@ -3,19 +3,21 @@ import { Icon, MenuBarExtra, Clipboard, showToast, Toast } from "@raycast/api";
 import { getFavicon } from "@raycast/utils";
 
 import { useAccounts } from './ssh';
+
 import { Test } from './test';
 
 export default function Command() {
+  console.log("Command");
   const { accounts, isLoading } = useAccounts();
-  
-  const { output, finished } = Test({ cmd: "node -v" });
-  console.log("-", output, finished);
 
-  async function test() {
+  function call() {
+    const { output, finished } = Test({ cmd: "node -v" });
+    console.log("-", output, finished);
   }
 
   useEffect(() => {
-    //test();
+    //const { output, finished } = Test({ cmd: "node -v" });
+    //console.log("-", output, finished);
   }, []);
 
   return (
@@ -31,8 +33,9 @@ export default function Command() {
           >
             <MenuBarExtra.Item
               title="Select dir"
-              //onAction={() => console.log("account")}
-              onAction={() => test()}
+              onAction={() => {
+                call();
+              }}
             />
             <MenuBarExtra.Item
               title="~/Desktop"
@@ -44,6 +47,7 @@ export default function Command() {
     </MenuBarExtra>
   );
 }
+
 
 /*
   function getUserNameAndProject(url: string): { userName: string | undefined, projectName: string | undefined } {
